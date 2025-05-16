@@ -21,6 +21,7 @@ import java.util.List;
 public class Credits {
 
     public List<CastMember> cast;
+    public List<CastMember> guest_stars;
     public Crew crew;
 
 }

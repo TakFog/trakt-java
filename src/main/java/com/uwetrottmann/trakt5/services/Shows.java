@@ -214,6 +214,29 @@ public interface Shows {
     );
 
     /**
+     * Returns all actors, directors, writers, and producers for a show.
+     *
+     * @param showId trakt ID, trakt slug, or IMDB ID. Example: "game-of-thrones".
+     * @param guestStars true to include guest stars in the credits
+     */
+    default Call<Credits> people(String showId, boolean guestStars) {
+        if (guestStars)
+            return peopleExtended(showId);
+        else
+            return people(showId);
+    }
+
+    /**
+     * Returns all actors, directors, writers, and producers for a show, including guest stars.
+     *
+     * @param showId trakt ID, trakt slug, or IMDB ID. Example: "game-of-thrones".
+     */
+    @GET("shows/{id}/people?extended=guest_stars")
+    Call<Credits> peopleExtended(
+            @Path("id") String showId
+    );
+
+    /**
      * Returns rating (between 0 and 10) and distribution for a show.
      *
      * @param showId trakt ID, trakt slug, or IMDB ID. Example: "game-of-thrones".

@@ -229,8 +229,17 @@ public class BaseTestCase {
     }
 
     public void assertCast(Credits credits, Type type) {
-        for (CastMember castMember : credits.cast) {
+        assertCastMembers(credits.cast, type);
+    }
+
+    public void assertGuestStars(Credits credits, Type type) {
+        assertCastMembers(credits.guest_stars, type);
+    }
+
+    public void assertCastMembers(List<CastMember> castMembers, Type type) {
+        for (CastMember castMember : castMembers) {
             assertThat(castMember.character).isNotNull();
+            assertThat(castMember.characters).isNotEmpty();
             if (type == Type.SHOW) {
                 assertThat(castMember.movie).isNull();
                 assertThat(castMember.show).isNotNull();

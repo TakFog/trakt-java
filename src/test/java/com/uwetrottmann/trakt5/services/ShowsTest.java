@@ -123,6 +123,15 @@ public class ShowsTest extends BaseTestCase {
     public void test_people() throws IOException {
         Credits credits = executeCall(getTrakt().shows().people(TestData.SHOW_SLUG));
         assertCast(credits, Type.PERSON);
+        assertThat(credits.guest_stars).isNull();
+        assertCrew(credits, Type.PERSON);
+    }
+
+    @Test
+    public void test_peopleExtended() throws IOException {
+        Credits credits = executeCall(getTrakt().shows().peopleExtended(TestData.SHOW_SLUG));
+        assertCast(credits, Type.PERSON);
+        assertGuestStars(credits, Type.PERSON);
         assertCrew(credits, Type.PERSON);
     }
 
